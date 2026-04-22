@@ -7,8 +7,8 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { isLoading, data, isError } = useMe()
 
   if (isLoading) return <div>Checking auth...</div>
-  if (isError || !data) return <Navigate to="/login" replace />
-
+  // if (isError || !data) return <Navigate to="/login" replace />
+if (isError || !data) return <div>Error loading user info. Please <a href="/login">login</a> again.</div>
   return <>{children}</>
 }
 

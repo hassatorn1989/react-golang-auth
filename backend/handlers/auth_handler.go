@@ -5,6 +5,7 @@ import (
 	"auth-backend/dto"
 	"auth-backend/models"
 	"auth-backend/utils"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -95,6 +96,7 @@ func (h *AuthHandler) Login(c *gin.Context) {
 
 func (h *AuthHandler) Refresh(c *gin.Context) {
 	refreshToken, err := c.Cookie("refresh_token")
+	fmt.Println("Received refresh token:", refreshToken)
 	if err != nil || refreshToken == "" {
 		c.JSON(http.StatusUnauthorized, gin.H{"message": "missing refresh token"})
 		return
