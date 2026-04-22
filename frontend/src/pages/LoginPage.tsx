@@ -1,10 +1,15 @@
 import { useState } from 'react'
-import { useLogin } from '../features/auth/authHooks'
+import { useLogin, useMe } from '../features/auth/authHooks'
 import { useNavigate } from 'react-router-dom'
 
 export default function LoginPage() {
     const navigate = useNavigate()
     const loginMutation = useLogin()
+    const me = useMe()
+
+    if (me.data) {
+        navigate('/')
+    }
 
     const [email, setEmail] = useState('admin@example.com')
     const [password, setPassword] = useState('123456')

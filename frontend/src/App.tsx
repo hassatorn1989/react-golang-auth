@@ -2,13 +2,20 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import LoginPage from './pages/LoginPage'
 import HomePage from './pages/HomePage'
 import { useMe } from './features/auth/authHooks'
+import { authStore } from './lib/authStore'
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  const { isLoading, data, isError } = useMe()
+  const token = authStore.getAccessToken()
+  
+  const { isPending, data, isError } = useMe()
 
-  if (isLoading) return <div>Checking auth...</div>
-  // if (isError || !data) return <Navigate to="/login" replace />
-if (isError || !data) return <div>Error loading user info. Please <a href="/login">login</a> again.</div>
+  if (!token) {
+    return <Navigate to="/login" replace />
+  }
+
+  if (isPending) return <div>Checking auth...</div>
+
+  if (isError || !data) return <Navigate to="/login" replace />
   return <>{children}</>
 }
 

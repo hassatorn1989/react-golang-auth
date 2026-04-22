@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { getMe, login, logout, type LoginPayload } from './authApi'
 import { authStore } from '../../lib/authStore'
+import { useNavigate } from 'react-router-dom'
 
 export function useMe() {
     return useQuery({
@@ -26,6 +27,7 @@ export function useLogin() {
 }
 
 export function useLogout() {
+    const navigation = useNavigate()
     const queryClient = useQueryClient()
 
     return useMutation({
@@ -33,6 +35,7 @@ export function useLogout() {
         onSuccess: () => {
             queryClient.removeQueries({ queryKey: ['me'] })
             authStore.setAccessToken(null)
+            navigation('/login')
         },
     })
 }

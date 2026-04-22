@@ -10,4 +10,7 @@ export const authStore = {
             localStorage.removeItem('accessToken')
         }
     },
+    clear: () => {
+        localStorage.removeItem('accessToken')
+    }
 }

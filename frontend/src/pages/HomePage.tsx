@@ -5,12 +5,10 @@ import { useNavigate } from 'react-router-dom'
 export default function HomePage() {
     const { data, isLoading, isError } = useMe()
     const logoutMutation = useLogout()
-    const navigation = useNavigate()
 
     if (isLoading) return <div>Loading...</div>
     if (isError) {
-        // navigation('/login')
-        return <div>Error loading user info. Please <a href="/login">login</a> again.</div> 
+        return <div>Error loading user info. Please <a href="/login">login</a> again.</div>
     }
 
     return (
